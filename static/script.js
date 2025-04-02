@@ -124,39 +124,33 @@
     window.addEventListener("load", startup, false);
   })();
 
-  document.getElementById('process-button').addEventListener('click', async () => {
-    const canvas = document.getElementById('canvas');
-    const text = document.getElementById('user-text').value;
-    const responseDiv = document.getElementById('api-response');
+document.getElementById('process-button').addEventListener('click', () => {
+  const canvas = document.getElementById('canvas');
+  const text = document.getElementById('user-text').value;
   
-    try {
-      // Conversion en base64
-      const imageData = canvas.toDataURL('image/png');
-      
-      // Envoi au backend
-      const response = await fetch('/process', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          image: imageData,
-          text: text
-        })
-      });
+  // Conversion en noir et blanc
+  const ctx = canvas.getContext('2d');
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  const data = imageData.data;
   
-      const data = await response.json();
-      
-      if (data.error) {
-        responseDiv.textContent = `Erreur: ${data.error}`;
-        responseDiv.style.color = 'red';
-      } else {
-        responseDiv.textContent = data.response;
-        responseDiv.style.color = 'black';
-      }
-    } catch (error) {
-      console.error('Erreur:', error);
-      responseDiv.textContent = 'Une erreur est survenue';
-      responseDiv.style.color = 'red';
-    }
-  });
+  for (let i = 0; i < data.length; i += 4) {
+    const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+    data[i] = avg;     // R
+    data[i + 1] = avg; // G
+    data[i + 2] = avg; // B
+  }
+  
+  ctx.putImageData(imageData, 0, 0);
+  
+  // Ajout du texte "VOILA !"
+  ctx.font = '40px Arial';
+  ctx.fillStyle = 'white';
+  ctx.fillText(`VOILA ! ${text}`, 10, 50);
+  
+  // Affichage du résultat
+  const resultDiv = document.getElementById('result');
+  resultDiv.innerHTML = '';
+  const resultImg = document.createElement('img');
+  resultImg.src = canvas.toDataURL('image/png');
+  resultDiv.appendChild(resultImg);
+});
