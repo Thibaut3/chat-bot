@@ -25,7 +25,7 @@ def process():
 
     try:
         completion = client.chat.completions.create(
-            model="google/gemini-2.0-pro-exp-02-05:free",
+            model="mistralai/mistral-small-3.1-24b-instruct:free",
             messages=[
                 {
                     "role": "user",
