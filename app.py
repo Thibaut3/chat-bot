@@ -4,6 +4,7 @@ import os
 from openai import OpenAI
 
 app = Flask(__name__)
+app.config['JSON_AS_ASCII'] = False  # Désactive l'échappement ASCII automatique
 
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
@@ -42,7 +43,7 @@ def process():
                 }
             ]
         )
-        return jsonify({"response": completion.choices[0].message.content})
+        return jsonify({"response": completion.choices[0].message.content}), 200, {'Content-Type': 'application/json; charset=utf-8'}
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
