@@ -126,7 +126,7 @@
 
   document.getElementById('process-button').addEventListener('click', async () => {
     const canvas = document.getElementById('canvas');
-    const text = document.getElementById('user-text').value;
+    const text = encodeURIComponent(document.getElementById('user-text').value);
     const responseDiv = document.getElementById('api-response');
   
     try {
