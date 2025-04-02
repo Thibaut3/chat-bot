@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Calcifrère</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="manifest" href="manifest.json">
+  <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+</head>
+<body>
+  <div class="camera">
+    <video id="video">Video stream not available.</video>
+    <button id="start-button">Prendre une photo</button>
+  </div>
+  <canvas id="canvas"></canvas>
+  
+  <div class="editor">
+    <textarea id="user-text" placeholder="Écrivez votre message ici..."></textarea>
+    <button id="process-button">Générer l'image</button>
+  </div>
+
+  
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
