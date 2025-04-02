@@ -99,6 +99,17 @@ document.getElementById('process-button').addEventListener('click', async () => 
   const text = document.getElementById('user-text').value;
   const responseDiv = document.getElementById('api-response');
 
+  const button = document.getElementById('process-button');
+  const loader = document.querySelector('.loader');
+  const progressBar = document.querySelector('.progress-bar');
+  const buttonText = document.querySelector('.button-text');
+  
+  // Désactiver le bouton
+  button.disabled = true;
+  buttonText.textContent = 'Traitement en cours...';
+  loader.style.display = 'block';
+  progressBar.style.width = '100%';
+
   try {
     // Conversion en base64
     const imageData = canvas.toDataURL('image/png');
@@ -128,5 +139,12 @@ document.getElementById('process-button').addEventListener('click', async () => 
     console.error('Erreur:', error);
     responseDiv.textContent = 'Une erreur est survenue';
     responseDiv.style.color = 'red';
+
+  } finally {
+    // Réactiver le bouton
+    button.disabled = false;
+    buttonText.textContent = 'Valider';
+    loader.style.display = 'none';
+    progressBar.style.width = '0%';
   }
 });
