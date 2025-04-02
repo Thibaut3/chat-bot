@@ -1,19 +1,19 @@
 from flask import Flask, render_template, request, jsonify
 import base64
 import os
-from openai import OpenAI
+#from openai import OpenAI
 
 app = Flask(__name__)
 
-client = OpenAI(
-    base_url="https://openrouter.ai/api/v1",
-    api_key=os.environ.get("OPENROUTER_KEY"),
-)
+#client = OpenAI(
+#    base_url="https://openrouter.ai/api/v1",
+#    api_key=os.environ.get("OPENROUTER_KEY"),
+#)
 
 @app.route('/')
 def index():
     return render_template('index.html')
-
+'''
 @app.route('/process', methods=['POST'])
 def process():
     data = request.json
@@ -45,6 +45,6 @@ def process():
         return jsonify({"response": completion.choices[0].message.content})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
+'''
 if __name__ == '__main__':
     app.run(debug=True)
