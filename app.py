@@ -18,16 +18,14 @@ def index():
 @app.route('/process', methods=['POST'])
 def process():
     data = request.json
-    image_data = data['image'].split(",")[1]  # Remove the data URL prefix
+    image_data = data['image']
+    print(data['image'][:50])
+    print(data['image'][-50:])
     user_text = data['text']
 
     try:
         completion = client.chat.completions.create(
-            extra_headers={
-                "HTTP-Referer": request.host_url,
-                "X-Title": "Calcifrère",
-            },
-            model="google/gemini-2.5-pro-exp-03-25:free",
+            model="google/gemini-2.0-flash-001",
             messages=[
                 {
                     "role": "user",
@@ -36,7 +34,7 @@ def process():
                         {
                             "type": "image_url",
                             "image_url": {
-                                "url": f"data:image/png;base64,{image_data}"
+                                "url": f"{image_data}"
                             }
                         }
                     ]
