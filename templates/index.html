@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
   <link rel="manifest" href="manifest.json">
-  <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="camera">
@@ -20,8 +20,12 @@
     <button id="process-button">Générer l'image</button>
   </div>
 
+  <div id="result">
+    <div id="api-response" class="response"></div>
+  </div>
+
   
-  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <script src="script.js"></script>
 
 </body>
 </html>
